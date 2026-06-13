@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ASN.1 - Guide Vidéo Interactif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-dark: #34495e;
+            --text-light: #ecf0f1;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            overflow: hidden;
+        }
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            filter: blur(5px);
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.6);
+            text-align: center;
+            color: white;
+        }
+        .section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(44, 62, 80, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: perspective(1000px) rotateX(10deg);
+            transition: all 0.5s ease;
+        }
+        .section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        .code-block {
+            background-color: #2c3e50;
+            color: #1abc9c;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .code-block::before {
+            content: 'ASN.1 Code';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 0 0 5px 5px;
+        }
+        .interactive-element {
+            background: rgba(52, 152, 219, 0.2);
+            border: 2px solid var(--secondary-color);
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .interactive-element:hover {
+            background: rgba(52, 152, 219, 0.4);
+            transform: scale(1.02);
+        }
+        .timeline {
+            position: relative;
+            padding: 50px 0;
+            overflow: hidden;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary-color);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+        @keyframes codeAnimation {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video autoplay loop muted class="video-background">
+            <source src="https://example.com/network-background.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <h1>ASN.1 : Notation Syntaxique Abstraite</h1>
+            <p>Un voyage au cœur des protocoles de communication</p>
+        </div>
+    </div>
+
+    <div class="section" id="introduction">
+        <h2>🔍 Qu'est-ce qu'ASN.1 ?</h2>
+        <p>ASN.1 est un langage standardisé de description de données, utilisé pour définir des structures de communication indépendantes des plateformes.</p>
+    </div>
+
+    <div class="section" id="code-exemple">
+        <h2>📝 Exemple de Syntaxe</h2>
+        <div class="code-block">
+            <pre>
+Personne ::= SEQUENCE {
+    nom         PrintableString,
+    prenom      PrintableString,
+    age         INTEGER (0..150),
+    email       IA5String OPTIONAL,
+    adresse     SEQUENCE {
+        rue         PrintableString,
+        ville       PrintableString,
+        codePostal  PrintableString
+    } OPTIONAL
+}
+            </pre>
+        </div>
+    </div>
+
+    <div class="section" id="domaines-application">
+        <h2>🌐 Domaines d'Application</h2>
+        <div class="interactive-element" onclick="toggleDetails(this)">
+            <h3>Télécommunications</h3>
+            <div class="details" style="display:none;">
+                <p>Protocoles de signalisation mobile, réseaux 4G/5G, systèmes satellitaires</p>
+            </div>
+        </div>
+        <div class="interactive-element" onclick="toggleDetails(this)">
+            <h3>Sécurité Informatique</h3>
+            <div class="details" style="display:none;">
+                <p>Certificats X.509, protocoles SSL/TLS, Infrastructure à Clés Publiques</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="methodes-encodage">
+        <h2>🔧 Méthodes d'Encodage</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>BER (Basic Encoding Rules)</h3>
+                <p>Méthode d'encodage flexible, base de plusieurs implémentations</p>
+            </div>
+            <div class="timeline-item">
+                <h3>DER (Distinguished Encoding Rules)</h3>
+                <p>Sous-ensemble de BER, utilisé pour les certificats avec encodage unique</p>
+            </div>
+            <div class="timeline-item">
+                <h3>PER (Packed Encoding Rules)</h3>
+                <p>Encodage compact pour systèmes à ressources limitées</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(element) {
+            const details = element.querySelector('.details');
+            details.style.display = details.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Animation de code
+        document.querySelectorAll('.code-block pre').forEach(codeBlock => {
+            codeBlock.style.animation = 'codeAnimation 1s ease';
+        });
+
+        // Effet parallaxe simple
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const scrollPosition = window.pageYOffset;
+                section.style.transform = `translateY(${scrollPosition * 0.1}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
