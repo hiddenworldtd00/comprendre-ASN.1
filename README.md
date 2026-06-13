@@ -1,199 +1,32 @@
-C'est quoi ASN.1 ?
 
-ASN.1 (Abstract Syntax Notation One) est un langage standard qui sert à décrire la structure des données.
+http://www.itu.int/en/ITU-T/asn1/Pages/introduction.aspx
 
-Imaginez que deux ordinateurs veulent communiquer. Ils doivent savoir :
+ASN.1 a été normalisé pour la première fois en 1984 par le CCITT (Comité Consultatif International du Télégraphe et du Téléphone, maintenant appelé UIT-T,Union Internationale des Télécommunications - Secteur de la Normalisation des Télécommunications) sous le nom de “Recommandation X. 409”. Un peu plus tard, l'ISO (Organisation Internationale de Normalisation) a choisi d'adopter cette notation et de scinder cette recommandation en deux documents distincts: la syntaxe abstraite (ASN.1) et les règles d'encodage (BER). En 1985, le CCITT a décidé de collaborer avec l'ISO sur ces deux documents.
 
-quelles données sont envoyées ;
-dans quel ordre elles sont placées ;
-quel est leur type (texte, nombre, date, etc.).
+En 1987, l'ISO a publié ces documents sous les numéros 8824 et 8825 (seuls trois nouveaux types de chaînes de caractères sont ajoutés). En 1988, l'ISO a fusionné avec la CEI (Commission électrotechnique internationale) pour former un comité technique mixte appelé ISO / CEI JTC 1, qui est désormais en charge de l'ASN.1 norme.
 
-ASN.1 sert de plan de construction pour organiser ces données.
+Norme ISO 8824/8825
+Pour la dernière version (disponible depuis fin 2008), la norme ISO 8824 a été scindée en quatre parties:
 
-Exemple
--------
+ISO 8824-1 / UIT-T X. 680: Spécification de la notation de base
+ISO 8824-2 / UIT-T X. 681: Spécification des objets d'information
+ISO 8824-3 / UIT-T X. 682: Spécification des contraintes
+ISO 8824-4 / UIT-T X. 683: Paramétrage de l'ASN.1 spécifications
+En ce qui concerne les règles d'encodage, la norme ISO 8825 a été divisée en sept parties:
 
-Person ::= SEQUENCE {
-    nom     UTF8String,
-    prenom  UTF8String,
-    age     INTEGER
-}
+ISO 8825-1 / UIT-T X. 690: Spécification des Règles de codage de Base (BER), des Règles de Codage Canoniques (CER) et du Codage distingué
+ISO 8825-2 / UIT-T X. 691: Spécification des règles de codage compressées (PER)
+ISO 8825-3 / UIT-T X. 692: Norme CE.1 règles d'encodage: Spécification de la Notation de contrôle d'encodage (ECN)
+ISO 8825-4 / UIT-T X. 693: Norme CE.1 règles d'encodage: Règles d'encodage XML (XER)
+ISO 8825-5 / UIT-T X. 694: Norme CE.1 règles d'encodage: Mappage des définitions de schéma XML du W3C dans l'ASN.1
+ISO 8825-6 / UIT-T X. 695: Norme CE.1 règles d'encodage: Enregistrement et application des instructions d'encodage PER
+ISO 8825-7 / UIT-T X. 696: Norme CE.1 règles d'encodage: Spécification des règles d'encodage d'octets (REL)
+Outils
+ASN.1 j
+ASN.1 Décodeur JavaScript
 
-Cela signifie :
+https://lapo.it/asn1js/, https://asn1js.eu/ ou https://site.chapelier.encre / asn1j/
 
-nom = texte
-prenom = texte
-age = nombre entier
-
-ASN.1 ne contient pas les données elles-mêmes, il décrit seulement leur structure.
-
-Analogie simple
-
-Imaginez un formulaire :
-
-Champ	Type
-Nom	Texte
-Prénom	Texte
-Âge	Nombre
-
-ASN.1 est comme le modèle vide du formulaire.
-
-Les vraies données seraient :
-
-Nom : Dupont
-Prénom : Jean
-Âge : 30
-Pourquoi ASN.1 est utilisé ?
-
-Parce que différents systèmes doivent communiquer sans erreur.
-
-Par exemple :
-
-banques
-certificats SSL/TLS
-réseaux 4G/5G
-cartes SIM
-passeports électroniques
-systèmes militaires
-satellites
-
-Tous doivent comprendre exactement les mêmes données.
-
-Que signifie SEQUENCE ?
-
-SEQUENCE est l'équivalent d'une structure ou d'un objet.
-
-Person ::= SEQUENCE {
-    nom UTF8String,
-    age INTEGER
-}
-
-On peut l'imaginer ainsi :
-
-Person
-│
-├── nom = "Dupont"
-└── age = 30
-Les types ASN.1 les plus utilisés
-Type ASN.1	Signification
-INTEGER	Nombre entier
-BOOLEAN	Vrai/Faux
-UTF8String	Texte
-OCTET STRING	Données binaires
-BIT STRING	Suite de bits
-SEQUENCE	Groupe d'éléments
-SET	Ensemble d'éléments
-OBJECT IDENTIFIER	Identifiant unique
-
-Exemple :
-
-age INTEGER
-25
-Comment les données sont envoyées ?
-
-Un ordinateur ne comprend que des octets.
-
-ASN.1 utilise donc des règles d'encodage :
-
-BER
-CER
-DER
-PER
-XER
-JER
-
-Le plus connu est DER.
-
-Exemple d'encodage DER
-
-Nombre :
-
-INTEGER 100
-
-devient :
-
-02 01 64
-
-Décomposition :
-
-02 = type INTEGER
-01 = longueur
-64 = valeur 100
-
-C'est ce que la machine échange réellement.
-
-ASN.1 et les certificats HTTPS
-
-Lorsque vous ouvrez :
-
-https://google.com
-
-Votre navigateur reçoit un certificat numérique.
-
-Ce certificat est écrit avec ASN.1.
-
-Structure simplifiée :
-
-Certificat
-│
-├── Version
-├── Numéro de série
-├── Émetteur
-├── Propriétaire
-├── Date début
-├── Date fin
-└── Clé publique
-
-Tous ces éléments sont décrits avec ASN.1.
-
-ASN.1 en cybersécurité
-
-Vous rencontrerez ASN.1 dans :
-
-Certificats X.509
-SSL/TLS
-PKI
-Cartes à puce
-SNMP
-VPN
-Télécommunications 4G/5G
-
-C'est pourquoi les analystes cybersécurité apprennent souvent ASN.1.
-
-Avec quel langage travailler ?
-
-ASN.1 n'est pas un langage de programmation.
-
-On l'utilise avec :
-
-Python
-C
-C++
-Java
-C#
-Go
-
-Le plus simple pour débuter est Python.
-
-Exemple :
-
-from pyasn1.type import univ
-from pyasn1.codec.der.encoder import encode
-
-nombre = univ.Integer(100)
-
-data = encode(nombre)
-
-print(data.hex())
-
-Résultat :
-
-020164
-Outils recommandés
-Visual Studio Code pour écrire le code.
-Python + pyasn1 pour expérimenter.
-OpenSSL pour analyser les certificats.
-ASN.1 Playground pour apprendre en ligne.
-Résumé final
-
-ASN.1 est un langage de description de données. Il permet à différents systèmes informatiques de comprendre exactement la même structure d'information. Il est utilisé dans les certificats HTTPS, les réseaux, les télécommunications, les cartes à puce et la cybersécurité. ASN.1 décrit les données, puis celles-ci sont converties en octets grâce à des encodages comme DER ou BER pour être transmises entre machines.
+Référence
+https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One
+Chapelier Jiang, WebEncrypt.Org, Ma clé: https://hatter.in/key, laissez un message ici
